@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src gap://ready file://* *; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'">
+
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <!--<link rel="stylesheet" type="text/css" href="css/index.css">-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-material-design.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.min.css">
+        <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <title>Hello World</title>
+    </head>
+    <body class="grey lighten-2">
+        <div class="container-fluid" >
+            <div class="row "></div>
+            <div class="row ">
+                <div class="col xl5 l5 m5 s5 white valign-wrapper center-align z-depth-2" id="fecha">
+                    <p class="flow-text full-width no-margin " id="fecha-content">
+                    </p>
+                </div>
+                <div class="col xl5 offset-xl2 l5 offset-l2 m5 offset-m2 s5 offset-s2  cyan accent-4 valign-wrapper center-align no-margin z-depth-2" id="label">
+                    <p class="flow-text  valign full-width no-margin" id="prueba">
+                        ICP
+                    </p>
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row" id="operazione" >
+                <div class="col xl7 l7 m7 s7 left-align flow-text" id="operazione-label">
+                    OPERAZIONE 
+                </div>
+                <div class="col xl1 l1 m1 s1 left-align" id="add_operation">
+                    <i class="material-icons">add_circle</i>
+                </div>
+                <div class="chip cyan accent-4 col xl2 offset-xl2 l2 offset-l2 m2 offset-m2 s3 offset-s1 center-align flow-text search-btn" id="operazione-search">
+                    Cerca
+                </div>
+            </div>
+
+            <div class="divider full-width no-margin no-padding black"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+
+            <div class="row">
+                <div class="col xl12 l12 m12 s12 full-width no-margin no-padding">
+
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 full-width no-margin no-padding">
+                          <input id="operation-name" type="text" class="validate" >
+                          <label for="operation-name">Nome</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 full-width no-margin no-padding">
+                          <input id="operation-line" type="text" class="validate" >
+                          <label for="operation-line">Linea</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 full-width no-margin no-padding">
+                          <input id="operation-op" type="text" class="validate" >
+                          <label for="operation-op">OP</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row" id="prodotto" >
+                <div class="col xl7 l7 m7 s7 left-align flow-text" id="prodotto-label">
+                    PRODOTTO
+                </div>
+                <div class="col xl1 l1 m1 s1 left-align" id="add_operation">
+                    <i class="material-icons">add_circle</i>
+                </div>
+                <div class="chip cyan accent-4 col xl1 offset-xl3 l1 offset-l3 m1 offset-m3 s1 offset-s3 center-align flow-text search-btn" id="product-search">
+                    Cerca
+                </div>
+            </div>
+            <div class="divider full-width no-margin no-padding black"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+
+            <div class="row">
+                <div class="col xl12 l12 m12 s12 full-width no-margin no-padding">
+
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 full-width no-margin no-padding">
+                          <input id="product-name" type="text" class="validate" >
+                          <label for="product-name">Nome</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 full-width no-margin no-padding">
+                          <input id="product-pippo" type="text"  class="validate" >
+                          <label for="product-pippo">PIPPO</label>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row" id="defect" >
+                <div class="col xl7 l7 m7 s7 left-align flow-text" id="operazione-label">
+                    DEFECT 
+                </div>
+            </div>
+            <div class="divider full-width no-margin no-padding black"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row">
+                <div class="col xl12 l12 m12 s12 full-width no-margin no-padding left-align flow-text">
+                    Do you want to create a new defect?
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <div class="row">
+                        <div class="col s2">
+                            <input class="with-gap" name="answer" type="radio" id="ansY" onclick="showForm(0)" checked />
+                            <label for="ansY" >Yes</label>
+                        </div>
+                        <div class="col s2">
+                            <input class="with-gap" name="answer" type="radio" id="ansN" onclick="showForm(1)"  />
+                            <label for="ansN">No</label>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="defectYes">
+                <div class="col xl12 l12 m12 s12 full-width no-margin no-padding">
+
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 full-width no-margin no-padding">
+                          <input id="defect_name" type="text" class="" >
+                          <label for="defect_name">Nome</label>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+
+            <div class="row " id="defectNo">
+                <div class=" col s12">
+                    <div class="row">
+                        <select name="defect" data-native-menu="false">
+                          <option value="" disabled selected>Choose your option</option>
+                          <option value="2"> Esto es una prueba</option>
+                        </select>
+                        <label>Defects</label>
+                    </div>
+                  </div>
+            </div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row" id="send-btn-div">
+                <div class="col xl1 l1 m1 s1  btn-floating cyan accent-4">
+                    <i class="material-icons">send</i>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/rilevazione.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    </body>
+</html>

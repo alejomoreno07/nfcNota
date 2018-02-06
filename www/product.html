@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src gap://ready file://* *; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'">
+
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <!--<link rel="stylesheet" type="text/css" href="css/index.css">-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-material-design.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.min.css">
+        <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <title>Hello World</title>
+    </head>
+    <body class="grey lighten-2">
+        <div class="container-fluid" >
+            <div class="row "></div>
+            <div class="row ">
+                <div class="col xl5 l5 m5 s5 white valign-wrapper center-align z-depth-2" id="fecha">
+                    <p class="flow-text full-width no-margin " id="fecha-content">
+                    </p>
+                </div>
+                <div class="col xl5 offset-xl2 l5 offset-l2 m5 offset-m2 s5 offset-s2  cyan accent-4 valign-wrapper center-align no-margin z-depth-2" id="label">
+                    <p class="flow-text  valign full-width no-margin" id="prueba">
+                        ICP
+                    </p>
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row" id="prodotto" >
+                <div class="col xl7 l7 m7 s7 left-align flow-text" id="prodotto-label">
+                    PRODOTTO
+                </div>
+            </div>
+            <div class="divider full-width no-margin no-padding black"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+
+            <div class="row">
+                <div class="col xl12 l12 m12 s12 full-width no-margin no-padding">
+
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 full-width no-margin no-padding">
+                          <input disabled id="product-name" type="text" class="validate" >
+                          <label for="product-name">Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col xl12 l12 m12 s12 full-width no-margin no-padding">
+                          <input disabled id="product-pippo" type="text"  class="validate" >
+                          <label for="product-pippo">PIPPO</label>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="row" id="damage">
+                <div class="col xl12 l12 m12 s12 full-width no-margin no-padding left-align flow-text">
+                    DIFETTI E PRODOTTI
+                </div>
+            </div>
+            <div class="divider full-width no-margin no-padding black"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row">
+                <div class="col xl12 l12 m12 s12 full-width no-margin no-padding">
+
+                    <div class="row">
+                        <div class="input-field col xl6 l6 m6 s6 no-margin">
+                          <input type="number" id="defect_number" type="text" class="validate" >
+                          <label for="defect_number">DIFETI</label>
+                        </div>
+                        <div class="input-field col xl6 l6 m6 s6 no-margin">
+                          <input type="number" id="product_number" type="text"  class="validate" >
+                          <label for="product_number">PRODOTTI</label>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="row">
+                <div class="col xl12 l12 m12 s12 full-width no-margin no-padding left-align flow-text">
+                    GRAVITA'
+                </div>
+            </div>
+            <div class="divider full-width no-margin no-padding black"></div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="row">
+                        <div class="col s2">
+                            <input class="with-gap" name="severity" type="radio" id="op1" />
+                            <label for="op1">1</label>
+                        </div>
+                        <div class="col s2">
+                            <input class="with-gap" name="severity" type="radio" id="op2"  />
+                            <label for="op2">2</label>
+                        </div>
+                        <div class="col s2">
+                            <input class="with-gap" name="severity" type="radio" id="op3"  />
+                            <label for="op3">3</label>
+                        </div>
+                        <div class="col s2">
+                            <input class="with-gap" name="severity" type="radio" id="op4" />
+                            <label for="op4">4</label>
+                        </div>
+                        <div class="col s2">
+                            <input class="with-gap" name="severity" type="radio" id="op5" />
+                            <label for="op5">5</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="send-btn-div">
+                <div class="col xl1 l1 m1 s1  btn-floating cyan accent-4">
+                    <i class="material-icons">send</i>
+                </div>
+            </div>
+            
+        </div>
+
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/product.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    </body>
+</html>

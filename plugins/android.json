@@ -1,0 +1,21 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "io.cordova.NFCfinal"
+    },
+    "phonegap-nfc": {
+      "PACKAGE_NAME": "io.cordova.NFCfinal"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "io.cordova.NFCfinal"
+    }
+  },
+  "dependent_plugins": {}
+}
