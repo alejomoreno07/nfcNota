@@ -240,10 +240,10 @@ var app = {
         });
         
         var prodID = "-1";
-        $.getJSON("http://weisseamsel.altervista.org/nfcProject/searchOp.php?area="+operation_name+"&line="+operation_line+"&operation="+operation_op,function(data){
-            opID = data;
-            if(opID != -1 && opID != "-1"){
-                localStorage.setItem('opID',opID);
+        $.getJSON("http://weisseamsel.altervista.org/nfcProject/searchProduct.php?code="+product_name+"&description="+product_pippo,function(data){
+            prodID = data;
+            if(prodID != -1 && prodID != "-1"){
+                localStorage.setItem('prodID',prodID);
             }else{
                 $.ajax({
                     type: 'POST',
@@ -252,13 +252,13 @@ var app = {
                     url: 'http://weisseamsel.altervista.org/nfcProject/operationsCRUD.php',
                     data: { 
                         'what': 0, 
-                        'area': operation_name, // <-- the $ sign in the parameter name seems unusual, I would avoid it
-                        'line': operation_line,
-                        'operation': operation_op 
+                        'code': product_name, // <-- the $ sign in the parameter name seems unusual, I would avoid it
+                        'description': product_pippo,
+                        'value': 1000 
                     },
                     success: function(data){
-                        opID = data;
-                        localStorage.setItem('opID',opID);
+                        prodID = data;
+                        localStorage.setItem('prodID',prodID);
 
                     }
                 });
