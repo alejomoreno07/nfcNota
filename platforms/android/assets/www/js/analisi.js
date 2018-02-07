@@ -94,13 +94,13 @@ var app = {
             var prodID = localStorage.getItem("prodID");
             var defectID = localStorage.getItem("defectID");
             var frequency = localStorage.getItem("frequency");
-            var severity = localStorage.getItem("priority_number");
+            var severity = localStorage.getItem("severity");
             var picID = 1;
             var analisi = localStorage.getItem("4M");
             var status = "";
             var anomalycode = localStorage.getItem("anomalycode");
             var fecha = localStorage.getItem("fecha");
-            var priority = localStorage.getItem("severity");
+            var priority = localStorage.getItem("priority_number");
             $.ajax({
                 type: 'POST',
                 // make sure you respect the same origin policy with this url:

@@ -103,20 +103,34 @@ var app = {
         });
     },
     sendInformation:function(link){
-        var numberPhotos = localStorage.getItem("numberPics");
-        var idPic = localStorage.getItem("img"+numberPhotos);
+        var numberPhotos = parseInt(localStorage.getItem("numberPics"))-1;
+        var idPic = localStorage.getItem("IDimg"+numberPhotos);
         var base = localStorage.getItem(idPic);
         var x = document.getElementById("circleShape").style.left;
         var y = document.getElementById("circleShape").style.top;
         var width = document.getElementById("myImage").width;
         var height = document.getElementById("myImage").height;
-        var detectionCode = 1;
+
+        var anomaly_code = localStorage.getItem("anomalycode");
+        if(anomaly_code == null){
+            $.getJSON("http://weisseamsel.altervista.org/nfcProject/detectnumb.php",function(data){
+                var opID = localStorage.getItem("opID");
+                var prodID = localStorage.getItem("prodID");
+                var defectID = localStorage.getItem("defectID");
+                var numero = data + 1;
+                var anomalycode ="O"+opID+"P"+prodID+"D"+defectID+"N"+numero;
+                localStorage.setItem("anomalycode", anomalycode);
+             });    
+        }
+        else{
+
+        }
+        
 
         localStorage.setItem(idPic+"x",x);
         localStorage.setItem(idPic+"y",y);
         localStorage.setItem(idPic+"width",width);
         localStorage.setItem(idPic+"width",height);
-
         $.ajax({
             type: 'POST',
             url: 'http://weisseamsel.altervista.org/nfcProject/uploadImage.php',
@@ -125,12 +139,11 @@ var app = {
                 'y': y,
                 'widht': width,
                 'height': height,
-                'detectionCode':detectionCode,
+                'detectionCode':anomaly_code,
                 'image': base, 
-                'filename': idPic
+                'name': idPic
             },
             success: function(msg){
-                alert(msg);
                 if(link == 1){
                     window.location.href='analisi.html';
                 }else{
@@ -229,11 +242,11 @@ function cameraTakePicture() {
         app.taken = true;
         $.getJSON('http://weisseamsel.altervista.org/nfcProject/numpic.php',function(data){
             var numPic = data;
-            var idPic = "img"+numPic;
+            var idPic = "img"+numPic+".png";
             var numberPhotos = localStorage.getItem("numberPics");
-            localStorage.setItem("img"+numberPhotos, idPic);
+            localStorage.setItem("IDimg"+numberPhotos, idPic);
             localStorage.setItem(idPic, imageData);
-            numberPhotos = numberPhotos + 1;
+            numberPhotos = parseInt(numberPhotos) + 1;
             localStorage.setItem("numberPics", numberPhotos);
         });
 
