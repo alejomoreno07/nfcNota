@@ -112,7 +112,7 @@ var app = {
             
             if(app.fieldsValidation()){
                 app.sendInformation();
-                window.location.href='product.html';   
+                 
             }else{
                 alert('All the fields must be filled in order to proceed.');
             }
@@ -212,11 +212,11 @@ var app = {
             localStorage.setItem("defectID",defectID);
             localStorage.setItem("defect_description",defectDescription);
         }
-
         var opID = "-1";
         $.getJSON("http://weisseamsel.altervista.org/nfcProject/searchOp.php?area="+operation_name+"&line="+operation_line+"&operation="+operation_op,function(data){
             opID = data;
             if(opID != -1 && opID != "-1"){
+                alert("opID1:"+opID);
                 localStorage.setItem('opID',opID);
             }else{
                 $.ajax({
@@ -232,8 +232,36 @@ var app = {
                     },
                     success: function(data){
                         opID = data;
+                        alert("opID"+opID);
                         localStorage.setItem('opID',opID);
+                         var prodID = "-1";
+                        $.getJSON("http://weisseamsel.altervista.org/nfcProject/searchProduct.php?code="+product_name+"&description="+product_pippo,function(data){
+                            prodID = data;
+                            if(prodID != -1 && prodID != "-1"){
+                                localStorage.setItem('prodID',prodID);
+                                window.location.href='product.html';  
+                            }else{
+                                $.ajax({
+                                    type: 'POST',
+                                    // make sure you respect the same origin policy with this url:
+                                    // http://en.wikipedia.org/wiki/Same_origin_policy
+                                    url: 'http://weisseamsel.altervista.org/nfcProject/productCRUD.php',
+                                    data: { 
+                                        'what': 0, 
+                                        'code': product_name, // <-- the $ sign in the parameter name seems unusual, I would avoid it
+                                        'description': product_pippo,
+                                        'value': 1000 
+                                    },
+                                    success: function(data){
+                                        prodID = data;
+                                        alert(prodID);
+                                        localStorage.setItem('prodID',prodID);
+                                        window.location.href='product.html';  
 
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
             }
@@ -244,12 +272,13 @@ var app = {
             prodID = data;
             if(prodID != -1 && prodID != "-1"){
                 localStorage.setItem('prodID',prodID);
+                window.location.href='product.html';  
             }else{
                 $.ajax({
                     type: 'POST',
                     // make sure you respect the same origin policy with this url:
                     // http://en.wikipedia.org/wiki/Same_origin_policy
-                    url: 'http://weisseamsel.altervista.org/nfcProject/operationsCRUD.php',
+                    url: 'http://weisseamsel.altervista.org/nfcProject/productCRUD.php',
                     data: { 
                         'what': 0, 
                         'code': product_name, // <-- the $ sign in the parameter name seems unusual, I would avoid it
@@ -258,7 +287,9 @@ var app = {
                     },
                     success: function(data){
                         prodID = data;
+                        alert(prodID);
                         localStorage.setItem('prodID',prodID);
+                        window.location.href='product.html';  
 
                     }
                 });
