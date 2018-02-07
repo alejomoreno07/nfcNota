@@ -131,7 +131,6 @@ var app = {
         localStorage.setItem(idPic+"y",y);
         localStorage.setItem(idPic+"width",width);
         localStorage.setItem(idPic+"width",height);
-        alert(idPic+ " "+ localStorage.getItem("IDimg"+numberPhotos));
         $.ajax({
             type: 'POST',
             url: 'http://weisseamsel.altervista.org/nfcProject/uploadImage.php',
@@ -145,7 +144,6 @@ var app = {
                 'name': idPic
             },
             success: function(msg){
-                alert(msg);
                 if(link == 1){
                     window.location.href='analisi.html';
                 }else{

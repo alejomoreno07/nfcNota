@@ -249,7 +249,7 @@ var app = {
                     type: 'POST',
                     // make sure you respect the same origin policy with this url:
                     // http://en.wikipedia.org/wiki/Same_origin_policy
-                    url: 'http://weisseamsel.altervista.org/nfcProject/operationsCRUD.php',
+                    url: 'http://weisseamsel.altervista.org/nfcProject/productCRUD.php',
                     data: { 
                         'what': 0, 
                         'code': product_name, // <-- the $ sign in the parameter name seems unusual, I would avoid it
