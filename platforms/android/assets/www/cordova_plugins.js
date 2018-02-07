@@ -44,7 +44,8 @@ module.exports.metadata =
 {
   "cordova-plugin-whitelist": "1.3.3",
   "phonegap-nfc": "0.7.1",
-  "cordova-plugin-camera": "4.0.1"
+  "cordova-plugin-camera": "4.0.1",
+  "cordova-plugin-wkwebview-engine": "1.1.4"
 };
 // BOTTOM OF METADATA
 });

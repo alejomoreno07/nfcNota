@@ -65,19 +65,31 @@ var app = {
 
     putPriorityColor:function(idElement, priority){
         var element = document.getElementById(idElement);
-        if(priority == 'AA' || priority == 'aa') element.style.backgroundColor = "red";
+        if(priority == 'AA') element.style.backgroundColor = "red";
+        else if(priority == 'A') element.style.backgroundColor = "orange";
+        else if(priority == 'B') element.style.backgroundColor = "Aquamarine ";
+        else if(priority == 'BB') {
+            element.style.backgroundColor = "MediumSpringGreen   ";
+            //element.style.color = "white";
+        }
+        else if(priority == 'M'){
+            element.style.backgroundColor = "Peru ";
+        }
         else if(priority == "MM3" || priority == 'mm3') element.style.backgroundColor = "yellow";
         else element.style.backgroundColor = "purple";
     },
     sendDefectInformation:function(idDefect){
         var opID = document.getElementById("col_op"+idDefect).textContent;
         var prodID = document.getElementById("col_prod"+idDefect).textContent;
+        var defectID = document.getElementById("col_defect"+idDefect).textContent;
         var frequency = document.getElementById("col_frequency"+idDefect).textContent;
         var analisi = document.getElementById("col_analisi"+idDefect).textContent;
         var gravita = document.getElementById("col_gravita"+idDefect).textContent;
+        var anomaly_code = document.getElementById("col_anomaly"+idDefect).textContent;
         var frequency_data = frequency.split("/");
         var defect = frequency_data['0'];
         var numberOfProducts = frequency_data['1'];
+        localStorage.setItem("defectID",defectID);
         localStorage.setItem("gravita",gravita);
         localStorage.setItem("opID",opID);
         localStorage.setItem("prodID",prodID);
@@ -85,15 +97,22 @@ var app = {
         localStorage.setItem("defect",defect);
         localStorage.setItem("numberOfProducts",numberOfProducts);
         localStorage.setItem("analisi",analisi);
+        localStorage.setItem("anomalycode",anomaly_code);
     },
 
     setLink:function(idElement, idDefect){
         var element = document.getElementById(idElement);
-
         element.addEventListener('click',function(){
             app.sendDefectInformation(idDefect);
             window.location.href='rilevazione.html'; 
         });
+    },
+    getPriorityLevel:function(number){
+        if(number >= 250) return "AA";
+        else if(number >= 200 && number < 250) return "A";
+        else if(number >= 150 && number < 200) return "M";
+        else if(number >= 100 && number < 100) return "B";
+        else return "BB";
     },
 
     fillRow: function(data){
@@ -112,7 +131,7 @@ var app = {
         var priority   = document.createElement("div");
         priority.className = "col xl4 l4 m4 s4 table-cell center-align full-width no-margin no-padding table-col-2 cell";
         priority.id    = "col_priority"+data["detectID"];
-        priority.innerHTML = data["severity"];
+        priority.innerHTML = app.getPriorityLevel(data["severity"]);
 
         var status     = document.createElement("div");
         status.className   = "col xl1 l1 m1 s1 table-cell center-align full-width no-margin no-padding table-col-3 cell";
@@ -145,11 +164,17 @@ var app = {
         gravita.id = "col_gravita"+data["detectID"];
         gravita.innerHTML = data["priority"];
 
+        var defectID = document.createElement("div");
+        defectID.className = "hidden";
+        defectID.id = "col_defect"+data["detectID"];
+        defectID.innerHTML = data["detectID"];
+
         row.appendChild(opID);
         row.appendChild(prodID);
         row.appendChild(frequency);
         row.appendChild(analisi);
         row.appendChild(gravita);
+        row.appendChild(defectID);
 
              
         row.appendChild(anomaly_code);
@@ -160,9 +185,9 @@ var app = {
 
         // Putting colors     
         app.putStatusColor(status.id, data["status"]);
-        app.putPriorityColor(priority.id, data["severity"]);
+        app.putPriorityColor(priority.id, app.getPriorityLevel(data["severity"]));
 
-        app.setLink(anomaly_code.id, data["defectID"]);
+        app.setLink(anomaly_code.id, data["detectID"]);
             
     }
    

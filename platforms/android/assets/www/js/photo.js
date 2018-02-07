@@ -17,7 +17,27 @@
  * under the License.
  */
 
+function getBase64(file) {
+   var reader = new FileReader();
+   reader.readAsDataURL(file);
+   reader.onload = function () {
+     return reader.result;
+   };
+   reader.onerror = function (error) {
+     console.log('Error: ', error);
+   };
+}
 
+function getBase64Image(imgElem) {
+// imgElem must be on the same server otherwise a cross-origin error will be thrown "SECURITY_ERR: DOM Exception 18"
+    var canvas = document.createElement("canvas");
+    canvas.width = imgElem.clientWidth;
+    canvas.height = imgElem.clientHeight;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(imgElem, 0, 0);
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
 
 
 var app = {
@@ -25,7 +45,7 @@ var app = {
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
-
+    taken:false,
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:
@@ -35,6 +55,14 @@ var app = {
         app.getInformation();
         app.setSubmit('send-btn-div');
     
+    },
+    setFecha:function(date){
+        var element = document.getElementById("fecha-content");
+        var fecha = date.split("-");
+        var day = fecha['2'];
+        var month = fecha['1'];
+        var year = fecha['0'];
+        element.innerHTML = day+"/"+month+"/"+year;
     },
     fillDate:function(idElement){
         var today = new Date();
@@ -47,6 +75,9 @@ var app = {
     getInformation:function(){
         var name  = localStorage.getItem("product_name");
         var pippo = localStorage.getItem("product_pippo");
+        var date = localStorage.getItem("fecha");
+
+        app.setFecha(date);
         app.setData('product-name',name);
         app.setData('product-pippo',pippo);
 
@@ -62,16 +93,46 @@ var app = {
         element.addEventListener('click',function(){
             
             if(app.fieldsValidation()){
-                app.sendInformation();
-                window.location.href='analisi.html';   
+               if(app.taken) app.sendInformation(1);
+               else window.location.href='analisi.html';
+                   
             }else{
                 alert('All the fields must be filled in order to proceed.');
             }
 
         });
     },
-    sendInformation:function(){
-        // It must be implemented
+    sendInformation:function(link){
+        var numberPhotos = localStorage.getItem("numberPics");
+        var idPic = localStorage.getItem("img"+numberPhotos);
+        var base = localStorage.getItem(idPic);
+        var x = document.getElementById("circleShape").style.left;
+        var y = document.getElementById("circleShape").style.top;
+        var width = document.getElementById("myImage").width;
+        var height = document.getElementById("myImage").height;
+        var detectionCode = 1;
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://weisseamsel.altervista.org/nfcProject/uploadImage.php',
+            data: { 
+                'x': x,
+                'y': y,
+                'widht': width,
+                'height': height,
+                'detectionCode':detectionCode,
+                'image': base, 
+                'filename': idPic
+            },
+            success: function(msg){
+                alert(msg);
+                if(link == 1){
+                    window.location.href='analisi.html';
+                }else{
+                    window.location.href='photo.html';
+                }
+            }
+        });
     },
     fieldsValidation:function(){
        
@@ -149,23 +210,38 @@ function createDraggableElement(containerId, typeElement, idElement, classElemen
 
 
 function cameraTakePicture() { 
-   navigator.camera.getPicture(onSuccess, onFail, { quality: 50,  destinationType: Camera.DestinationType.DATA_URI });  
-   
-   
-    function onSuccess(imageURI) {
+   navigator.camera.getPicture(onSuccess, onFail, { quality: 50,  destinationType: Camera.DestinationType.DATA_URL });  
+    function onSuccess(imageData) {
         var image = document.getElementById('myImage');
-        image.src = imageURI;
-        createDraggableElement("imageContainer","div","circleShape","ui-widget-content");
+        image.src = "data:image/jpeg;base64," + imageData;
+         createDraggableElement("imageContainer","div","circleShape","ui-widget-content");
         var circle = document.getElementById("circleShape");
         dragElement(document.getElementById('circleDiv'));
-        
+        circle.top="0px";
+        circle.left="0px";
+        var hiddenButton = document.getElementById("another");
+        hiddenButton.classList.remove("hidden");
+        app.taken = true;
+        $.getJSON('http://weisseamsel.altervista.org/nfcProject/numpic.php',function(data){
+            var numPic = data;
+            var idPic = "img"+numPic;
+            var numberPhotos = localStorage.getItem("numberPics");
+            localStorage.setItem("img"+numberPhotos, idPic);
+            localStorage.setItem(idPic, imageData);
+            numberPhotos = numberPhotos + 1;
+            localStorage.setItem("numberPics", numberPhotos);
+        });
+
     }
+   
    function onFail(message) { 
       alert('Failed because: ' + message); 
    }
 }
 
-   
+function other(){
+    app.sendInformation(2);
+}
     
 
 function dragElement(elmnt) {

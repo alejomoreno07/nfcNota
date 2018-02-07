@@ -28,7 +28,9 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src gap://ready file://* *; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'">
+       <meta http-equiv="Content-Security-Policy" content="default-src *; 
+img-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; 
+style-src  'self' 'unsafe-inline' *">
 
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -105,6 +107,13 @@
      </div>
      <div id="circleDiv" class="row">
 
+    </div>
+
+    <div id="another" class="row hidden">
+        <div class="col xl8  l8  m8  s8">
+            <button id="cameraTakeAnotherPicture" onclick="other()" class="btn waves-effect waves-light cyan accent-4" type="submit" name="action">Take another Picture <i class="material-icons right">camera</i>
+            </button>
+        </div>
     </div>
      <div class="row" id="send-btn-div">
         <div class="col xl1 l1 m1 s1  btn-floating cyan accent-4">

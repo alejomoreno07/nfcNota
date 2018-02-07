@@ -15,6 +15,9 @@
     },
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "io.cordova.NFCfinal"
+    },
+    "cordova-plugin-wkwebview-engine": {
+      "PACKAGE_NAME": "io.cordova.NFCfinal"
     }
   },
   "dependent_plugins": {}

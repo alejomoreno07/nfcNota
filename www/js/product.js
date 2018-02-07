@@ -106,12 +106,23 @@ var app = {
         }
         
     },
+    setFecha:function(date){
+        var element = document.getElementById("fecha-content");
+        var fecha = date.split("-");
+        var day = fecha['2'];
+        var month = fecha['1'];
+        var year = fecha['0'];
+        element.innerHTML = day+"/"+month+"/"+year;
+    },
     getInformation:function(){
         var gravita = localStorage.getItem("gravita");
         var defect = localStorage.getItem("defect");
         var product_number = localStorage.getItem("numberOfProducts");
         var name  = localStorage.getItem("product_name");
         var pippo = localStorage.getItem("product_pippo");
+        var date = localStorage.getItem("fecha");
+
+        app.setFecha(date);
         
         app.setData('product-name',name);
         app.setData('product-pippo',pippo);
@@ -143,6 +154,8 @@ var app = {
         var defect_number  = document.getElementById('defect_number').value;
         var product_number = document.getElementById('product_number').value;
         var severity       = $("input[name=severity]:checked").next().text();
+        var frequency = defect_number+"/"+product_number;
+        localStorage.setItem('frequency',frequency);
         localStorage.setItem('defect_number',defect_number);
         localStorage.setItem('product_number',product_number);
         localStorage.setItem('severity',severity);

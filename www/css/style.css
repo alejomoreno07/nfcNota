@@ -23,6 +23,12 @@
 	width: 100%;
 }
 
+.fecha-input{
+	-webkit-appearance:: none !important;
+	background: transparent !important; 
+	border-color: transparent !important;
+}
+
 .fixed{
 	position: fixed;
 }
@@ -93,6 +99,11 @@ p{
 
 .search-btn{
 	color:white;
+}
+
+.select{
+	display: block !important;
+	background: transparent;
 }
 
 #send-btn-div{

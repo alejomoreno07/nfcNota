@@ -25,8 +25,16 @@ var app = {
     // Application Constructor
     newDefect:true,
     op:0,
+    opID:-1,
+    prodID:-1,
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+    },
+    setOpID:function(data){
+        app.opID = data;
+    },
+    setProdID:function(data){
+        app.prodID = data;
     },
 
     // deviceready Event Handler
@@ -39,6 +47,31 @@ var app = {
         app.setNfcEvent('product-search',2);
         app.setSubmit('send-btn-div');
         app.getInformation();
+        app.setSelectDefect();
+    },
+    setSelectDefect:function(){
+         $.getJSON('http://weisseamsel.altervista.org/nfcProject/defectCRUD.php?what=0',function(data){
+            jQuery.each(data, function(i,val){
+                var container = document.getElementById("defectSelect");
+
+                var element = document.createElement("option");
+                element.value = val['id'];
+                element.innerHTML = val['type'];
+
+                container.appendChild(element);
+            });
+            var defectID = localStorage.getItem("defectID");
+            if(defectID != null){
+                showForm(1);
+                var element = document.getElementById("ansY");
+                element.checked = false;
+                var ansNo = document.getElementById("ansN");
+                ansNo.checked=true;
+                document.getElementById("defectSelect").value = defectID;
+            }
+        });
+
+
     },
     
     operation_enable: function(){
@@ -144,11 +177,96 @@ var app = {
         var operation_op   = document.getElementById('operation-op').value;
         var product_name   = document.getElementById('product-name').value;
         var product_pippo  = document.getElementById('product-pippo').value;
+        var fecha = document.getElementById('fecha-content').value;
         localStorage.setItem('operation_name',operation_name);
         localStorage.setItem('operation_line',operation_line);
         localStorage.setItem('operation_op',operation_op);
         localStorage.setItem('product_name',product_name);
         localStorage.setItem('product_pippo',product_pippo);
+        localStorage.setItem('fecha',fecha);
+        localStorage.setItem('numberPics',1);
+
+        var defectID = -1;
+
+        if(app.newDefect){
+            var defect_type = document.getElementById("defect_name").value;
+            $.ajax({
+                type: 'POST',
+                // make sure you respect the same origin policy with this url:
+                // http://en.wikipedia.org/wiki/Same_origin_policy
+                url: 'http://weisseamsel.altervista.org/nfcProject/defectCRUD.php',
+                data: { 
+                    'what': 0, 
+                    'type': defect_type
+                },
+                success: function(data){
+                    localStorage.setItem("defectID",data);
+                    localStorage.setItem("defect_description",defect_type);  
+                }
+            });
+
+        }else{
+            var defecto = document.getElementById("defectSelect");
+            var defectID = defecto.options[defecto.selectedIndex].value;
+            var defectDescription = defecto.options[defecto.selectedIndex].text;
+            localStorage.setItem("defectID",defectID);
+            localStorage.setItem("defect_description",defectDescription);
+        }
+
+        var opID = "-1";
+        $.getJSON("http://weisseamsel.altervista.org/nfcProject/searchOp.php?area="+operation_name+"&line="+operation_line+"&operation="+operation_op,function(data){
+            opID = data;
+            if(opID != -1 && opID != "-1"){
+                localStorage.setItem('opID',opID);
+            }else{
+                $.ajax({
+                    type: 'POST',
+                    // make sure you respect the same origin policy with this url:
+                    // http://en.wikipedia.org/wiki/Same_origin_policy
+                    url: 'http://weisseamsel.altervista.org/nfcProject/operationsCRUD.php',
+                    data: { 
+                        'what': 0, 
+                        'area': operation_name, // <-- the $ sign in the parameter name seems unusual, I would avoid it
+                        'line': operation_line,
+                        'operation': operation_op 
+                    },
+                    success: function(data){
+                        opID = data;
+                        localStorage.setItem('opID',opID);
+
+                    }
+                });
+            }
+        });
+        
+        var prodID = "-1";
+        $.getJSON("http://weisseamsel.altervista.org/nfcProject/searchOp.php?area="+operation_name+"&line="+operation_line+"&operation="+operation_op,function(data){
+            opID = data;
+            if(opID != -1 && opID != "-1"){
+                localStorage.setItem('opID',opID);
+            }else{
+                $.ajax({
+                    type: 'POST',
+                    // make sure you respect the same origin policy with this url:
+                    // http://en.wikipedia.org/wiki/Same_origin_policy
+                    url: 'http://weisseamsel.altervista.org/nfcProject/operationsCRUD.php',
+                    data: { 
+                        'what': 0, 
+                        'area': operation_name, // <-- the $ sign in the parameter name seems unusual, I would avoid it
+                        'line': operation_line,
+                        'operation': operation_op 
+                    },
+                    success: function(data){
+                        opID = data;
+                        localStorage.setItem('opID',opID);
+
+                    }
+                });
+            }
+        });
+
+
+
     },
     fieldsValidation:function(){
         var operation_name = document.getElementById('operation-name').value;
@@ -156,7 +274,15 @@ var app = {
         var operation_op   = document.getElementById('operation-op').value;
         var product_name   = document.getElementById('product-name').value;
         var product_pippo  = document.getElementById('product-pippo').value;
-        return operation_name!='' && operation_line!='' && operation_op!='' && product_name!='' && product_pippo!='';
+        var date = document.getElementById('fecha-content').value;
+        var defect_selected ='';
+        if(app.newDefect){
+            defect_selected = document.getElementById("defect_name").value;
+        }else{
+            var defecto = document.getElementById("defectSelect");
+            defect_selected = defecto.options[defecto.selectedIndex].value;
+        }
+        return operation_name!='' && operation_line!='' && operation_op!='' && product_name!='' && product_pippo!='' && defect_selected!='' && date!='';
 
     },
     setNewDefect:function(value){
@@ -201,7 +327,6 @@ var app = {
 app.initialize();
 
 function showForm(option){
-    alert("im here: "+option);
     if(option == 1){
         var element = document.getElementById("defectYes");
         if(app.newDefect == true) element.className+=" hidden";

@@ -1,0 +1,105 @@
+{
+  "name": "cordova-plugin-wkwebview-engine",
+  "version": "1.1.4",
+  "description": "The official Apache Cordova WKWebView Engine Plugin",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache/cordova-plugin-wkwebview-engine.git"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
+  },
+  "keywords": [
+    "cordova",
+    "wkwebview"
+  ],
+  "scripts": {
+    "test": "npm run eslint && npm run objc-tests",
+    "objc-tests": "cd tests/ios && npm test",
+    "preobjc-tests": "cd tests/ios && npm install",
+    "eslint": "eslint src"
+  },
+  "author": {
+    "name": "Apache Cordova"
+  },
+  "license": "Apache-2.0",
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-wkwebview-engine#readme",
+  "_id": "cordova-plugin-wkwebview-engine@1.1.4",
+  "_shasum": "11b9cfa114ec0525c5c63e67a24eab4157034060",
+  "_resolved": "http://registry.npmjs.org/cordova-plugin-wkwebview-engine/-/cordova-plugin-wkwebview-engine-1.1.4.tgz",
+  "_from": "cordova-plugin-wkwebview-engine@latest",
+  "_npmVersion": "4.6.1",
+  "_nodeVersion": "6.6.0",
+  "_npmUser": {
+    "name": "stevegill",
+    "email": "stevengill97@gmail.com"
+  },
+  "dist": {
+    "shasum": "11b9cfa114ec0525c5c63e67a24eab4157034060",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-wkwebview-engine/-/cordova-plugin-wkwebview-engine-1.1.4.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "anis",
+      "email": "anis.kadri@gmail.com"
+    },
+    {
+      "name": "bowserj",
+      "email": "bowserj@apache.org"
+    },
+    {
+      "name": "cordovaowner",
+      "email": "stevengill.97@gmail.com"
+    },
+    {
+      "name": "csantanapr",
+      "email": "csantana23@gmail.com"
+    },
+    {
+      "name": "filmaj",
+      "email": "maj.fil@gmail.com"
+    },
+    {
+      "name": "kotikov.vladimir",
+      "email": "kotikov.vladimir@gmail.com"
+    },
+    {
+      "name": "purplecabbage",
+      "email": "purplecabbage@gmail.com"
+    },
+    {
+      "name": "shazron",
+      "email": "shazron@gmail.com"
+    },
+    {
+      "name": "stevegill",
+      "email": "stevengill97@gmail.com"
+    },
+    {
+      "name": "surajpindoria",
+      "email": "suraj.pindoria@yahoo.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-wkwebview-engine-1.1.4.tgz_1510361683985_0.42422114801593125"
+  },
+  "directories": {}
+}
